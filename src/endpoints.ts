@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_diff } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_diff, game_timestamps } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -232,7 +232,7 @@ const game_diff: EndpointDefinition = {
         "query_params": ["startTimecode", "endTimecode"],
         "required_params": [["startTimecode", "endTimecode"]],
     }
-    "game_timestamps": {
+const game_timestamps: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/timestamps",
         "path_params": {
             "ver": {
@@ -252,7 +252,7 @@ const game_diff: EndpointDefinition = {
         },
         "query_params": [],
         "required_params": [[]],
-    },
+    }
     "game_changes": {
         "url": BASE_URL + "{ver}/game/changes",
         "path_params": {
