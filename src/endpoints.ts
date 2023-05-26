@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 export const BASE_URL = "https://statsapi.mlb.com/api/";
 
 interface EndpointDefinition {
