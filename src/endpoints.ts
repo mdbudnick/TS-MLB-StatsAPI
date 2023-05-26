@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_changes, game_contextMetrics, game_diff, game_timestamps } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_changes, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -211,7 +211,7 @@ const game_contextMetrics: EndpointDefinition = {
     "query_params": ["timecode", "fields"],
     "required_params": [[]],
 }
-const game_diff: EndpointDefinition = {etrics endpoint into TS EndpointDefinition interface)
+const game_diff: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/diffPatch",
         "path_params": {
             "ver": {
@@ -253,8 +253,7 @@ const game_timestamps: EndpointDefinition = {
         "query_params": [],
         "required_params": [[]],
     }
-
-    "game_winProbability": {
+const game_winProbability: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/winProbability",
         "path_params": {
             "ver": {
@@ -275,7 +274,7 @@ const game_timestamps: EndpointDefinition = {
         "query_params": ["timecode", "fields"],
         "required_params": [[]],
         "note": "If you only want the current win probability for each team, try the game_contextMetrics endpoint instad.",
-    },
+    }
     "game_boxscore": {
         "url": BASE_URL + "{ver}/game/{gamePk}/boxscore",
         "path_params": {
