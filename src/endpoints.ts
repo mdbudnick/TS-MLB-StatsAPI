@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_boxscore, game_changes, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -88,7 +88,7 @@ const conferences: EndpointDefinition = {
         "query_params": ["conferenceId", "season", "fields"],
         "required_params": [[]],
     }
-    "divisions": {
+const divisions: EndpointDefinition = {
         "url": BASE_URL + "{ver}/divisions",
         "path_params": {
             "ver": {
