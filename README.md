@@ -1,12 +1,12 @@
-# MLB-StatsAPI
+# TS-MLB-StatsAPI
 
-Python wrapper for MLB Stats API
+NPM package of MLB Stats API
 
-Created by Todd Roberts
+Originally Created by Todd Roberts and forked translated to Typescript by Michael Budnick
 
-https://pypi.org/project/MLB-StatsAPI/
+TODO Add NPM package link
 
-Issues: https://github.com/toddrob99/MLB-StatsAPI/issues
+Issues: https://github.com/mdbudnick/MLB-StatsAPI/issues
 
 Wiki/Documentation: https://github.com/toddrob99/MLB-StatsAPI/wiki
 
