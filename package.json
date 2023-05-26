@@ -1,0 +1,23 @@
+{
+  "name": "ts-mlb-statsapi",
+  "version": "0.0.1",
+  "description": "npm package of forked https://github.com/toddrob99/MLB-StatsAPI/",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdbudnick/TS-MLB-StatsAPI.git"
+  },
+  "author": "Todd Roberts",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mdbudnick/TS-MLB-StatsAPI/issues"
+  },
+  "homepage": "https://github.com/mdbudnick/TS-MLB-StatsAPI#readme"
+}
