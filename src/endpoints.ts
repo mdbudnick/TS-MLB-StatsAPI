@@ -17,7 +17,8 @@ export interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
+export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
+    game_color_timestamps } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -358,7 +359,7 @@ const game_winProbability: EndpointDefinition = {
         "note": "If you only want the current win probability for each team, try the game_contextMetrics endpoint instad.",
     }
 
-    "game_color_timestamps": {
+const game_color_timestamps: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/color/timestamps",
         "path_params": {
             "ver": {
@@ -378,7 +379,7 @@ const game_winProbability: EndpointDefinition = {
         },
         "query_params": [],
         "required_params": [[]],
-    },
+    }
     "game_linescore": {
         "url": BASE_URL + "{ver}/game/{gamePk}/linescore",
         "path_params": {
