@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_changes, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_boxscore, game_changes, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -176,6 +176,27 @@ const game: EndpointDefinition = {
         "query_params": ["timecode", "hydrate", "fields"],
         "required_params": [[]],
     }
+const game_boxscore: EndpointDefinition = {
+    "url": BASE_URL + "{ver}/game/{gamePk}/boxscore",
+    "path_params": {
+        "ver": {
+            "type": "str",
+            "default": "v1",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+        "gamePk": {
+            "type": "str",
+            "default": "",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+    },
+    "query_params": ["timecode", "fields"],
+    "required_params": [[]],
+}
 const game_changes: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/changes",
     "path_params": {
@@ -189,6 +210,27 @@ const game_changes: EndpointDefinition = {
     },
     "query_params": ["updatedSince", "sportId", "gameType", "season", "fields"],
     "required_params": [["updatedSince"]],
+}
+const game_content: EndpointDefinition = {
+    "url": BASE_URL + "{ver}/game/{gamePk}/content",
+    "path_params": {
+        "ver": {
+            "type": "str",
+            "default": "v1",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+        "gamePk": {
+            "type": "str",
+            "default": "",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+    },
+    "query_params": ["highlightLimit"],
+    "required_params": [[]],
 }
 const game_contextMetrics: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/contextMetrics",
@@ -275,48 +317,7 @@ const game_winProbability: EndpointDefinition = {
         "required_params": [[]],
         "note": "If you only want the current win probability for each team, try the game_contextMetrics endpoint instad.",
     }
-    "game_boxscore": {
-        "url": BASE_URL + "{ver}/game/{gamePk}/boxscore",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-            "gamePk": {
-                "type": "str",
-                "default": "",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-        },
-        "query_params": ["timecode", "fields"],
-        "required_params": [[]],
-    },
-    "game_content": {
-        "url": BASE_URL + "{ver}/game/{gamePk}/content",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-            "gamePk": {
-                "type": "str",
-                "default": "",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-        },
-        "query_params": ["highlightLimit"],
-        "required_params": [[]],
-    },
+
     "game_color": {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/color",
         "path_params": {
