@@ -1,9 +1,27 @@
 #!/usr/bin/env python
 
-BASE_URL = "https://statsapi.mlb.com/api/"
+export const BASE_URL = "https://statsapi.mlb.com/api/";
 
-ENDPOINTS = {
-    "attendance": {
+interface EndpointDefinition {
+    url: string;
+    path_params: {
+      [key: string]: {
+        type: string;
+        default: string | null;
+        leading_slash: boolean;
+        trailing_slash: boolean;
+        required: boolean;
+        [key: string]: string | null | boolean | undefined;
+      };
+    };
+    query_params: string[];
+    required_params: any[][];
+    note: string;
+  }
+
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance } 
+
+const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
         "path_params": {
             "ver": {
@@ -24,7 +42,7 @@ ENDPOINTS = {
             "fields",
         ],
         "required_params": [["teamId"], ["leagueId"], ["leagueListid"]],
-    },
+    }
     "awards": {
         "url": BASE_URL + "{ver}/awards{awardId}{recipients}",
         "path_params": {
@@ -1347,4 +1365,4 @@ ENDPOINTS = {
     }
     # v1/analytics - requires authentication
     # v1/game/{gamePk}/guids - statcast data - requires authentication
-}
+};
