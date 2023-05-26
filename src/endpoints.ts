@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_changes, game_diff, game_timestamps } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_changes, game_contextMetrics, game_diff, game_timestamps } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -211,7 +211,7 @@ const game_contextMetrics: EndpointDefinition = {
     "query_params": ["timecode", "fields"],
     "required_params": [[]],
 }
-const game_diff: EndpointDefinition = {
+const game_diff: EndpointDefinition = {etrics endpoint into TS EndpointDefinition interface)
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/diffPatch",
         "path_params": {
             "ver": {
@@ -254,27 +254,6 @@ const game_timestamps: EndpointDefinition = {
         "required_params": [[]],
     }
 
-    "game_contextMetrics": {
-        "url": BASE_URL + "{ver}/game/{gamePk}/contextMetrics",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-            "gamePk": {
-                "type": "str",
-                "default": "",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            },
-        },
-        "query_params": ["timecode", "fields"],
-        "required_params": [[]],
-    },
     "game_winProbability": {
         "url": BASE_URL + "{ver}/game/{gamePk}/winProbability",
         "path_params": {
