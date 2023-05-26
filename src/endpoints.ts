@@ -18,7 +18,7 @@ export interface EndpointDefinition {
   }
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
-    game_color_timestamps, game_linescore, game_playByPlay, gamePace } 
+    game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -449,7 +449,7 @@ const gamePace: EndpointDefinition = {
         ],
         "required_params": [["season"]],
     }
-    "highLow": {
+const highLow: EndpointDefinition = {
         "url": BASE_URL + "{ver}/highLow/{orgType}",
         "path_params": {
             "ver": {
@@ -480,7 +480,7 @@ const gamePace: EndpointDefinition = {
         ],
         "required_params": [["sortStat", "season"]],
         "note": "Valid values for orgType parameter: player, team, division, league, sport, types.",
-    },
+    }
     "homeRunDerby": {
         "url": BASE_URL + "{ver}/homeRunDerby/{gamePk}{bracket}{pool}",
         "path_params": {
