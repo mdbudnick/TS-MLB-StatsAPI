@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -102,8 +102,8 @@ const conferences: EndpointDefinition = {
         "query_params": ["divisionId", "leagueId", "sportId"],
         "required_params": [[]],
         "note": "Call divisions endpoint with no parameters to return a list of divisions.",
-    },
-    "draft": {
+    }
+const draft: EndpointDefinition = {
         "url": BASE_URL + "{ver}/draft{prospects}{year}{latest}",
         "path_params": {
             "ver": {
@@ -154,7 +154,7 @@ const conferences: EndpointDefinition = {
         ],
         "required_params": [[]],
         "note": 'No query parameters are honored when "latest" endpoint is queried (year is still required). Prospects and Latest cannot be used together.',
-    },
+    }
     "game": {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live",
         "path_params": {
