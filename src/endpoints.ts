@@ -18,7 +18,7 @@ export interface EndpointDefinition {
   }
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
-    game_color_timestamps, game_linescore } 
+    game_color_timestamps, game_linescore, game_playByPlay } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -401,7 +401,7 @@ const game_linescore: EndpointDefinition = {
         "query_params": ["timecode", "fields"],
         "required_params": [[]],
     }
-    "game_playByPlay": {
+const game_playByPlay: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/playByPlay",
         "path_params": {
             "ver": {
@@ -421,7 +421,7 @@ const game_linescore: EndpointDefinition = {
         },
         "query_params": ["timecode", "fields"],
         "required_params": [[]],
-    },
+    }
     "gamePace": {
         "url": BASE_URL + "{ver}/gamePace",
         "path_params": {
