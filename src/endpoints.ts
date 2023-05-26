@@ -1,6 +1,6 @@
 export const BASE_URL = "https://statsapi.mlb.com/api/";
 
-interface EndpointDefinition {
+export interface EndpointDefinition {
     url: string;
     path_params: {
       [key: string]: {
@@ -17,7 +17,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
+export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",

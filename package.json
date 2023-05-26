@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/mdbudnick/TS-MLB-StatsAPI/issues"
   },
-  "homepage": "https://github.com/mdbudnick/TS-MLB-StatsAPI#readme"
+  "homepage": "https://github.com/mdbudnick/TS-MLB-StatsAPI#readme",
+  "devDependencies": {
+    "@types/node": "^20.2.4"
+  }
 }
