@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -74,7 +74,7 @@ const awards: EndpointDefinition = {
         "required_params": [[]],
         "note": "Call awards endpoint with no parameters to return a list of awardIds.",
     }
-    "conferences": {
+const conferences: EndpointDefinition = {
         "url": BASE_URL + "{ver}/conferences",
         "path_params": {
             "ver": {
@@ -87,7 +87,7 @@ const awards: EndpointDefinition = {
         },
         "query_params": ["conferenceId", "season", "fields"],
         "required_params": [[]],
-    },
+    }
     "divisions": {
         "url": BASE_URL + "{ver}/divisions",
         "path_params": {
