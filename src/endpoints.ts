@@ -124,7 +124,7 @@ const draft: EndpointDefinition = {
             },
             "year": {
                 "type": "str",
-                "default": "2019",  # TODO: current year or most recent draft year
+                "default": "2019",  // TODO: current year or most recent draft year
                 "leading_slash": True,
                 "trailing_slash": False,
                 "required": True,
