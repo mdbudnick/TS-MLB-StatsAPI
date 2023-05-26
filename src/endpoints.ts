@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game, game_diff } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -176,7 +176,42 @@ const game: EndpointDefinition = {
         "query_params": ["timecode", "hydrate", "fields"],
         "required_params": [[]],
     }
-    "game_diff": {
+const game_changes: EndpointDefinition = {
+    "url": BASE_URL + "{ver}/game/changes",
+    "path_params": {
+        "ver": {
+            "type": "str",
+            "default": "v1",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        }
+    },
+    "query_params": ["updatedSince", "sportId", "gameType", "season", "fields"],
+    "required_params": [["updatedSince"]],
+}
+const game_contextMetrics: EndpointDefinition = {
+    "url": BASE_URL + "{ver}/game/{gamePk}/contextMetrics",
+    "path_params": {
+        "ver": {
+            "type": "str",
+            "default": "v1",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+        "gamePk": {
+            "type": "str",
+            "default": "",
+            "leading_slash": False,
+            "trailing_slash": False,
+            "required": True,
+        },
+    },
+    "query_params": ["timecode", "fields"],
+    "required_params": [[]],
+}
+const game_diff: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/diffPatch",
         "path_params": {
             "ver": {
@@ -196,7 +231,7 @@ const game: EndpointDefinition = {
         },
         "query_params": ["startTimecode", "endTimecode"],
         "required_params": [["startTimecode", "endTimecode"]],
-    },
+    }
     "game_timestamps": {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/timestamps",
         "path_params": {
