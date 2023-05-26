@@ -19,7 +19,7 @@ interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft } 
+export const ENDPOINT: Record<string, EndpointDefinition> = { attendance, awards, conferences, draft, game } 
 
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
@@ -155,7 +155,7 @@ const draft: EndpointDefinition = {
         "required_params": [[]],
         "note": 'No query parameters are honored when "latest" endpoint is queried (year is still required). Prospects and Latest cannot be used together.',
     }
-    "game": {
+const game: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live",
         "path_params": {
             "ver": {
@@ -175,7 +175,7 @@ const draft: EndpointDefinition = {
         },
         "query_params": ["timecode", "hydrate", "fields"],
         "required_params": [[]],
-    },
+    }
     "game_diff": {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/diffPatch",
         "path_params": {
