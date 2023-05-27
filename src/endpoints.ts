@@ -19,7 +19,7 @@ export interface EndpointDefinition {
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
-    people, people_changes, people_freeAgents
+    people, people_changes, people_freeAgents, person
 } 
 
 const attendance: EndpointDefinition = {
@@ -648,7 +648,7 @@ const people_freeAgents: EndpointDefinition = {
         "query_params": ["order", "hydrate", "fields"],
         "required_params": [[]],
     }
-    "person": {
+const person: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people/{personId}",
         "path_params": {
             "ver": {
@@ -668,7 +668,7 @@ const people_freeAgents: EndpointDefinition = {
         },
         "query_params": ["hydrate", "fields"],
         "required_params": [[]],
-    },
+    }
     "person_stats": {
         "url": BASE_URL + "{ver}/people/{personId}/stats/game/{gamePk}",
         "path_params": {
