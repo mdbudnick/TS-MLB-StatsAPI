@@ -1,3 +1,5 @@
+import { notDeepEqual } from "assert";
+
 export const BASE_URL = "https://statsapi.mlb.com/api/";
 
 export interface EndpointDefinition {
@@ -19,7 +21,7 @@ export interface EndpointDefinition {
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
-    people, people_changes, people_freeAgents, person, person_stats, jobs
+    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games
 } 
 
 const attendance: EndpointDefinition = {
@@ -726,7 +728,7 @@ const jobs: EndpointDefinition = {
         "query_params": ["sportId", "date", "fields"],
         "required_params": [[]],
     },
-    "jobs_umpire_games": {
+const jobs_umpire_games: EndpointDefinition = {
         "url": BASE_URL + "{ver}/jobs/umpires/games/{umpireId}",
         "path_params": {
             "ver": {
