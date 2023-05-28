@@ -22,7 +22,7 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, seasons
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, seasons, season
 } 
 
 const attendance: EndpointDefinition = {
@@ -904,7 +904,7 @@ const seasons: EndpointDefinition = {
         "required_params": [["sportId"], ["divisionId"], ["leagueId"]],
         "note": 'Include "all" parameter with value of True to query all seasons. The divisionId and leagueId parameters are supported when "all" is used.',
     }
-    "season": {
+const season: EndpointDefinition = {
         "url": BASE_URL + "{ver}/seasons/{seasonId}",
         "path_params": {
             "ver": {
@@ -924,7 +924,7 @@ const seasons: EndpointDefinition = {
         },
         "query_params": ["sportId", "fields"],
         "required_params": [["sportId"]],
-    },
+    }
     "sports": {
         "url": BASE_URL + "{ver}/sports",
         "path_params": {
