@@ -22,7 +22,7 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn
 } 
 
 const attendance: EndpointDefinition = {
@@ -865,7 +865,7 @@ const schedule_postseason_series: EndpointDefinition = {
         ],
         "required_params": [[]],
     }
-    "schedule_postseason_tuneIn": {
+const schedule_postseason_tuneIn: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule/postseason/tuneIn",
         "path_params": {
             "ver": {
@@ -879,7 +879,7 @@ const schedule_postseason_series: EndpointDefinition = {
         "query_params": ["teamId", "sportId", "season", "hydrate", "fields"],
         "required_params": [[]],
         "note": "The schedule_postseason_tuneIn endpoint appears to return no data.",
-    },
+    }
     "seasons": {
         "url": BASE_URL + "{ver}/seasons{all}",
         "path_params": {
