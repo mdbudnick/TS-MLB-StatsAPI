@@ -22,7 +22,7 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings
 } 
 
 const attendance: EndpointDefinition = {
@@ -960,7 +960,7 @@ const sports_players: EndpointDefinition = {
         "query_params": ["season", "gameType", "fields"],
         "required_params": [["season"]],
     }
-    "standings": {
+const standings: EndpointDefinition = {
         "url": BASE_URL + "{ver}/standings",
         "path_params": {
             "ver": {
@@ -980,7 +980,7 @@ const sports_players: EndpointDefinition = {
             "fields",
         ],
         "required_params": [["leagueId"]],
-    },
+    }
     "stats": {
         "url": BASE_URL + "{ver}/stats",
         "path_params": {
