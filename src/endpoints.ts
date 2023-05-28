@@ -22,7 +22,7 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, seasons, season
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season
 } 
 
 const attendance: EndpointDefinition = {
@@ -808,20 +808,6 @@ const schedule: EndpointDefinition = {
         ],
         "required_params": [["sportId"], ["gamePk"], ["gamePks"]],
     }
-    "schedule_tied": {
-        "url": BASE_URL + "{ver}/schedule/games/tied",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            }
-        },
-        "query_params": ["gameTypes", "season", "hydrate", "fields"],
-        "required_params": [["season"]],
-    }
 const schedule_postseason: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule/postseason",
         "path_params": {
@@ -879,6 +865,20 @@ const schedule_postseason_tuneIn: EndpointDefinition = {
         "query_params": ["teamId", "sportId", "season", "hydrate", "fields"],
         "required_params": [[]],
         "note": "The schedule_postseason_tuneIn endpoint appears to return no data.",
+    }
+const schedule_tied: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/schedule/games/tied",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": False,
+                "trailing_slash": False,
+                "required": True,
+            }
+        },
+        "query_params": ["gameTypes", "season", "hydrate", "fields"],
+        "required_params": [["season"]],
     }
 const seasons: EndpointDefinition = {
         "url": BASE_URL + "{ver}/seasons{all}",
