@@ -22,7 +22,7 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats
 } 
 
 const attendance: EndpointDefinition = {
@@ -981,7 +981,7 @@ const standings: EndpointDefinition = {
         ],
         "required_params": [["leagueId"]],
     }
-    "stats": {
+const stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/stats",
         "path_params": {
             "ver": {
@@ -1013,7 +1013,7 @@ const standings: EndpointDefinition = {
         ],
         "required_params": [["stats", "group"]],
         "note": "If no limit is specified, the response will be limited to 50 records.",
-    },
+    }
     "stats_leaders": {
         "url": BASE_URL + "{ver}/stats/leaders",
         "path_params": {
