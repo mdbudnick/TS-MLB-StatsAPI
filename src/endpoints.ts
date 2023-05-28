@@ -21,7 +21,8 @@ export interface EndpointDefinition {
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
-    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers
+    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
+    schedule
 } 
 
 const attendance: EndpointDefinition = {
@@ -777,7 +778,7 @@ const jobs_officialScorers: EndpointDefinition = {
         "query_params": ["timecode", "fields"],
         "required_params": [[]],
     }
-    "schedule": {
+const schedule: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule",
         "path_params": {
             "ver": {
@@ -806,7 +807,7 @@ const jobs_officialScorers: EndpointDefinition = {
             "fields",
         ],
         "required_params": [["sportId"], ["gamePk"], ["gamePks"]],
-    },
+    }
     "schedule_tied": {
         "url": BASE_URL + "{ver}/schedule/games/tied",
         "path_params": {
