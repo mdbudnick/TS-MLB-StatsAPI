@@ -7,7 +7,7 @@ export interface EndpointDefinition {
     path_params: {
       [key: string]: {
         type: string;
-        default: string | null;
+        default: string | boolean | null;
         leading_slash: boolean;
         trailing_slash: boolean;
         required: boolean;
@@ -53,7 +53,7 @@ const awards: EndpointDefinition = {
             },
             "awardId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": true,
                 "trailing_slash": false,
                 "required": false,
@@ -657,7 +657,7 @@ const person: EndpointDefinition = {
             },
             "personId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -678,14 +678,14 @@ const person_stats: EndpointDefinition = {
             },
             "personId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
             },
             "gamePk": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -735,7 +735,7 @@ const jobs_umpire_games: EndpointDefinition = {
             },
             "umpireId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1071,7 +1071,7 @@ const team: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1092,7 +1092,7 @@ const team_alumni: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1113,7 +1113,7 @@ const team_coaches: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1134,7 +1134,7 @@ const team_leaders: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1162,7 +1162,7 @@ const team_personnel: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1183,7 +1183,7 @@ const team_roster: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1204,7 +1204,7 @@ const team_stats: EndpointDefinition = {
             },
             "teamId": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
@@ -1352,7 +1352,7 @@ const meta: EndpointDefinition = {
             },
             "type": {
                 "type": "str",
-                "default": None,
+                "default": null,
                 "leading_slash": false,
                 "trailing_slash": false,
                 "required": true,
