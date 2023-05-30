@@ -15,7 +15,7 @@ export interface EndpointDefinition {
       };
     };
     query_params: string[];
-    required_params: any[][];
+    required_params: string[];
     note?: string | undefined;
   }
 
@@ -39,7 +39,7 @@ const attendance: EndpointDefinition = {
             "gameType",
             "fields",
         ],
-        "required_params": [["teamId"], ["leagueId"], ["leagueListid"]],
+        "required_params": ["teamId", "leagueId", "leagueListId"],
     }
 const awards: EndpointDefinition = {
         "url": BASE_URL + "{ver}/awards{awardId}{recipients}",
@@ -207,7 +207,7 @@ const game_changes: EndpointDefinition = {
         }
     },
     "query_params": ["updatedSince", "sportId", "gameType", "season", "fields"],
-    "required_params": [["updatedSince"]],
+    "required_params": ["updatedSince"],
 }
 const game_color: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/feed/color",
@@ -249,7 +249,7 @@ const game_color_diff: EndpointDefinition = {
         },
     },
     "query_params": ["startTimecode", "endTimecode"],
-    "required_params": [["startTimeCode", "endTimeCode"]],
+    "required_params": ["startTimeCode", "endTimeCode"],
 }
 const game_content: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/content",
@@ -312,7 +312,7 @@ const game_diff: EndpointDefinition = {
             },
         },
         "query_params": ["startTimecode", "endTimecode"],
-        "required_params": [["startTimecode", "endTimecode"]],
+        "required_params": ["startTimecode", "endTimecode"],
     }
 const game_timestamps: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/timestamps",
@@ -446,7 +446,7 @@ const gamePace: EndpointDefinition = {
             "includeChildren",
             "fields",
         ],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const highLow: EndpointDefinition = {
         "url": BASE_URL + "{ver}/highLow/{orgType}",
@@ -477,7 +477,7 @@ const highLow: EndpointDefinition = {
             "limit",
             "fields",
         ],
-        "required_params": [["sortStat", "season"]],
+        "required_params": ["sortStat", "season"],
         "note": "Valid values for orgType parameter: player, team, division, league, sport, types.",
     }
 const homeRunDerby: EndpointDefinition = {
@@ -531,7 +531,7 @@ const league: EndpointDefinition = {
             }
         },
         "query_params": ["sportId", "leagueIds", "seasons", "fields"],
-        "required_params": [["sportId"], ["leagueIds"]],
+        "required_params": ["sportId", "leagueIds"],
     }
 const league_allStarBallot: EndpointDefinition = {
         "url": BASE_URL + "{ver}/league/{leagueId}/allStarBallot",
@@ -552,7 +552,7 @@ const league_allStarBallot: EndpointDefinition = {
             },
         },
         "query_params": ["season", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const league_allStarWriteIns: EndpointDefinition = {
         "url": BASE_URL + "{ver}/league/{leagueId}/allStarWriteIns",
@@ -573,7 +573,7 @@ const league_allStarWriteIns: EndpointDefinition = {
             },
         },
         "query_params": ["season", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const league_allStarFinalVote: EndpointDefinition = {
         "url": BASE_URL + "{ver}/league/{leagueId}/allStarFinalVote",
@@ -594,7 +594,7 @@ const league_allStarFinalVote: EndpointDefinition = {
             },
         },
         "query_params": ["season", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const people: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people",
@@ -608,7 +608,7 @@ const people: EndpointDefinition = {
             }
         },
         "query_params": ["personIds", "hydrate", "fields"],
-        "required_params": [["personIds"]],
+        "required_params": ["personIds"],
     }
 const people_changes: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people/changes",
@@ -742,7 +742,7 @@ const jobs_umpire_games: EndpointDefinition = {
             },
         },
         "query_params": ["season", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     },
 const jobs_datacasters: EndpointDefinition = {
         "url": BASE_URL + "{ver}/jobs/datacasters",
@@ -800,7 +800,7 @@ const schedule: EndpointDefinition = {
             "opponentId",
             "fields",
         ],
-        "required_params": [["sportId"], ["gamePk"], ["gamePks"]],
+        "required_params": ["sportId", "gamePk", "gamePks"],
     }
 const schedule_postseason: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule/postseason",
@@ -872,7 +872,7 @@ const schedule_tied: EndpointDefinition = {
             }
         },
         "query_params": ["gameTypes", "season", "hydrate", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const seasons: EndpointDefinition = {
         "url": BASE_URL + "{ver}/seasons{all}",
@@ -895,7 +895,7 @@ const seasons: EndpointDefinition = {
             },
         },
         "query_params": ["season", "sportId", "divisionId", "leagueId", "fields"],
-        "required_params": [["sportId"], ["divisionId"], ["leagueId"]],
+        "required_params": ["sportId", "divisionId", "leagueId"],
         "note": 'Include "all" parameter with value of true to query all seasons. The divisionId and leagueId parameters are supported when "all" is used.',
     }
 const season: EndpointDefinition = {
@@ -917,7 +917,7 @@ const season: EndpointDefinition = {
             },
         },
         "query_params": ["sportId", "fields"],
-        "required_params": [["sportId"]],
+        "required_params": ["sportId"],
     }
 const sports: EndpointDefinition = {
         "url": BASE_URL + "{ver}/sports",
@@ -952,7 +952,7 @@ const sports_players: EndpointDefinition = {
             },
         },
         "query_params": ["season", "gameType", "fields"],
-        "required_params": [["season"]],
+        "required_params": ["season"],
     }
 const standings: EndpointDefinition = {
         "url": BASE_URL + "{ver}/standings",
@@ -973,7 +973,7 @@ const standings: EndpointDefinition = {
             "hydrate",
             "fields",
         ],
-        "required_params": [["leagueId"]],
+        "required_params": ["leagueId"],
     }
 const stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/stats",
@@ -1005,7 +1005,7 @@ const stats: EndpointDefinition = {
             "personId",
             "metrics",
         ],
-        "required_params": [["stats", "group"]],
+        "required_params": ["stats", "group"],
         "note": "If no limit is specified, the response will be limited to 50 records.",
     }
 const stats_leaders: EndpointDefinition = {
@@ -1032,7 +1032,7 @@ const stats_leaders: EndpointDefinition = {
             "fields",
             "statType",
         ],
-        "required_params": [["leaderCategories"]],
+        "required_params": ["leaderCategories"],
         "note": "If excluding season parameter to get all time leaders, include statType=statsSingleSeason or you will likely not get any results.",
     }
 const stats_streaks: EndpointDefinition  = {
@@ -1056,7 +1056,7 @@ const stats_streaks: EndpointDefinition  = {
             "hydrate",
             "fields",
         ],
-        "required_params": [["streakType", "streakSpan", "season", "sportId", "limit"]],
+        "required_params": ["streakType", "streakSpan", "season", "sportId", "limit"],
         "note": 'Valid streakType values: "hittingStreakOverall" "hittingStreakHome" "hittingStreakAway" "onBaseOverall" "onBaseHome" "onBaseAway". Valid streakSpan values: "career" "season" "currentStreak" "currentStreakInSeason" "notable" "notableInSeason".',
     }
 const team: EndpointDefinition = {
@@ -1099,7 +1099,7 @@ const team_alumni: EndpointDefinition = {
             },
         },
         "query_params": ["season", "group", "hydrate", "fields"],
-        "required_params": [["season", "group"]],
+        "required_params": ["season", "group"],
     }
 const team_coaches: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/coaches",
@@ -1148,7 +1148,7 @@ const team_leaders: EndpointDefinition = {
             "limit",
             "fields",
         ],
-        "required_params": [["leaderCategories", "season"]],
+        "required_params": ["leaderCategories", "season"],
     }
 const team_personnel: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/personnel",
@@ -1219,7 +1219,7 @@ const team_stats: EndpointDefinition = {
             "sitCodes",
             "fields",
         ],
-        "required_params": [["season", "group"]],
+        "required_params": ["season", "group"],
         "note": "Use meta('statGroups') to look up valid values for group, meta('statTypes') for valid values for stats, and meta('situationCodes') for valid values for sitCodes. Use sitCodes with stats=statSplits.",
     }
 const teams: EndpointDefinition = {
@@ -1257,7 +1257,7 @@ const teams_history: EndpointDefinition = {
             }
         },
         "query_params": ["teamIds", "startSeason", "endSeason", "fields"],
-        "required_params": [["teamIds"]],
+        "required_params": ["teamIds"],
     }
 const teams_stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/stats",
@@ -1282,7 +1282,7 @@ const teams_stats: EndpointDefinition = {
             "startDate",
             "endDate",
         ],
-        "required_params": [["season", "group", "stats"]],
+        "required_params": ["season", "group", "stats"],
         "note": "Use meta('statGroups') to look up valid values for group, and meta('statTypes') for valid values for stats.",
     }
 const teams_affiliates: EndpointDefinition = {
@@ -1297,7 +1297,7 @@ const teams_affiliates: EndpointDefinition = {
             }
         },
         "query_params": ["teamIds", "sportId", "season", "hydrate", "fields"],
-        "required_params": [["teamIds"]],
+        "required_params": ["teamIds"],
     }
 const transactions: EndpointDefinition = {
         "url": BASE_URL + "{ver}/transactions",
@@ -1320,10 +1320,10 @@ const transactions: EndpointDefinition = {
             "fields",
         ],
         "required_params": [
-            ["teamId"],
-            ["playerId"],
-            ["date"],
-            ["startDate", "endDate"],
+            "teamId",
+            "playerId",
+            "date",
+            "startDate", "endDate",
         ],
     }
 const venue: EndpointDefinition = {
@@ -1338,7 +1338,7 @@ const venue: EndpointDefinition = {
             }
         },
         "query_params": ["venueIds", "season", "hydrate", "fields"],
-        "required_params": [["venueIds"]],
+        "required_params": ["venueIds"],
     }
 const meta: EndpointDefinition = {
         "url": BASE_URL + "{ver}/{type}",
