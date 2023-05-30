@@ -23,7 +23,7 @@ export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, award
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
     schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
-    teams, teams_history
+    teams, teams_history, teams_stats
 } 
 
 const attendance: EndpointDefinition = {
@@ -1103,7 +1103,7 @@ const teams_history: EndpointDefinition = {
         "query_params": ["teamIds", "startSeason", "endSeason", "fields"],
         "required_params": [["teamIds"]],
     }
-    "teams_stats": {
+const teams_stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/stats",
         "path_params": {
             "ver": {
@@ -1128,7 +1128,7 @@ const teams_history: EndpointDefinition = {
         ],
         "required_params": [["season", "group", "stats"]],
         "note": "Use meta('statGroups') to look up valid values for group, and meta('statTypes') for valid values for stats.",
-    },
+    }
     "teams_affiliates": {
         "url": BASE_URL + "{ver}/teams/affiliates",
         "path_params": {
