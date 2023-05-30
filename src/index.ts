@@ -1,224 +1,200 @@
-# encoding=utf-8
-"""# MLB-StatsAPI
+import * as endpoints from "./endpoints";
 
-Python wrapper for MLB Stats API
+export const BASE_URL = endpoints.BASE_URL;
+export const ENDPOINTS = endpoints.ENDPOINTS;
 
-Created by Todd Roberts
+interface GameInfo {
+  game_id: string;
+  game_datetime: string;
+  game_date: string;
+  game_type: string;
+  status: string;
+  away_name: string;
+  home_name: string;
+  away_id: number;
+  home_id: number;
+  doubleheader: boolean;
+  game_num: number;
+  home_probable_pitcher: string;
+  away_probable_pitcher: string;
+  home_pitcher_note: string;
+  away_pitcher_note: string;
+  away_score: string;
+  home_score: string;
+  current_inning: string;
+  inning_state: string;
+  venue_id: number;
+  venue_name: string;
+  national_broadcasts: string[];
+  series_status: string;
+}
 
-https://pypi.org/project/MLB-StatsAPI/
+export function schedule(
+  date?: string,
+  start_date?: string,
+  end_date?: string,
+  team: string = "",
+  opponent: string = "",
+  sportId: number = 1,
+  game_id?: string
+): GameInfo[] {
+  if (end_date && !start_date) {
+    date = end_date;
+    end_date = undefined;
+  }
 
-Issues: https://github.com/toddrob99/MLB-StatsAPI/issues
+  if (start_date && !end_date) {
+    date = start_date;
+    start_date = undefined;
+  }
 
-Wiki/Documentation: https://github.com/toddrob99/MLB-StatsAPI/wiki
-"""
-import sys
+  let params: any = {};
 
-import copy
-import logging
-import requests
-from datetime import datetime
+  if (date) {
+    params.date = date;
+  } else if (start_date && end_date) {
+    params.startDate = start_date;
+    params.endDate = end_date;
+  }
 
-from . import version
-from . import endpoints
+  if (team !== "") {
+    params.teamId = team.toString();
+  }
 
-__version__ = version.VERSION
-"""Installed version of MLB-StatsAPI"""
+  if (opponent !== "") {
+    params.opponentId = opponent.toString();
+  }
 
-BASE_URL = endpoints.BASE_URL
-"""Base MLB Stats API URL"""
-ENDPOINTS = endpoints.ENDPOINTS
-"""MLB Stats API endpoint configuration"""
+  if (game_id) {
+    params.gamePks = game_id;
+  }
 
-logger = logging.getLogger("statsapi")
+  let hydrate =
+    "decisions,probablePitcher(note),linescore,broadcasts,game(content(media(epg)))";
+  if (date === "2014-03-11" || (start_date && end_date && start_date <= "2014-03-11" && "2014-03-11" <= end_date)) {
+    console.log(
+      "Excluding seriesStatus hydration because the MLB API throws an error for 2014-03-11 which is included in the requested date range."
+    );
+  } else {
+    hydrate += ",seriesStatus";
+  }
+  params = {
+    ...params,
+    sportId: sportId.toString(),
+    hydrate: hydrate
+  };
 
-# Python 2 Support Warning
-if sys.version_info.major < 3:
-    logger.warning(
-        "WARNING: Support for Python 2 has been discontinued. "
-        "The MLB-StatsAPI module may continue to function, but "
-        "issues not impacting Python 3 will be closed and support will not be provided."
-    )
+  const r = get("schedule", params);
 
+  const games: GameInfo[] = [];
+  if (r.totalItems === 0) {
+    return games;
+  } else {
+    for (const dateObj of r.dates) {
+      for (const game of dateObj.games) {
+        const gameInfo: GameInfo = {
+          game_id: game.gamePk,
+          game_datetime: game.gameDate,
+          game_date: dateObj.date,
+          game_type: game.gameType,
+          status: game.status.detailedState,
+          away_name: game.teams.away.team?.name || "???",
+          home_name: game.teams.home.team?.name || "???",
+          away_id: game.teams.away.team.id,
+          home_id: game.teams.home.team.id,
+          doubleheader: game.doubleHeader,
+          game_num: game.gameNumber,
+          home_probable_pitcher:
+            game.teams.home.probablePitcher?.fullName || "",
+          away_probable_pitcher:
+            game.teams.away.probablePitcher?.fullName || "",
+          home_pitcher_note: game.teams.home.probablePitcher?.note || "",
+          away_pitcher_note: game.teams.away.probablePitcher?.note || "",
+          away_score: game.teams.away.score || "0",
+          home_score: game.teams.home.score || "0",
+          current_inning: game.linescore?.currentInning || "",
+          inning_state: game.linescore?.inningState || "",
+          venue_id: game.venue?.id || 0,
+          venue_name: game.venue?.name || "",
+          national_broadcasts: Array.from(
+            new Set(
+              game.broadcasts
+                .filter((broadcast) => broadcast.isNational)
+                .map((broadcast) => broadcast.name)
+            )
+          ),
+          series_status: game.seriesStatus?.result || ""
+        };
 
-def schedule(
-    date=None,
-    start_date=None,
-    end_date=None,
-    team="",
-    opponent="",
-    sportId=1,
-    game_id=None,
-):
-    """Get list of games for a given date/range and/or team/opponent."""
-    if end_date and not start_date:
-        date = end_date
-        end_date = None
-
-    if start_date and not end_date:
-        date = start_date
-        start_date = None
-
-    params = {}
-
-    if date:
-        params.update({"date": date})
-    elif start_date and end_date:
-        params.update({"startDate": start_date, "endDate": end_date})
-
-    if team != "":
-        params.update({"teamId": str(team)})
-
-    if opponent != "":
-        params.update({"opponentId": str(opponent)})
-
-    if game_id:
-        params.update({"gamePks": game_id})
-
-    hydrate = (
-        "decisions,probablePitcher(note),linescore,broadcasts,game(content(media(epg)))"
-    )
-    if date == "2014-03-11" or (str(start_date) <= "2014-03-11" <= str(end_date)):
-        # For some reason the seriesStatus hydration throws a server error on 2014-03-11 only (checked back to 2000)
-        logger.warning(
-            "Excluding seriesStatus hydration because the MLB API throws an error for 2014-03-11 which is included in the requested date range."
-        )
-    else:
-        hydrate += ",seriesStatus"
-    params.update(
-        {
-            "sportId": str(sportId),
-            "hydrate": hydrate,
+        if (game.content.media?.freeGame) {
+          gameInfo.national_broadcasts.push("MLB.tv Free Game");
         }
-    )
 
-    r = get("schedule", params)
+        if (gameInfo.status === "Final" || gameInfo.status === "Game Over") {
+          if (game.isTie) {
+            gameInfo.winning_team = "Tie";
+            gameInfo.losing_Team = "Tie";
+          } else {
+            gameInfo.winning_team = game.teams.away.isWinner
+              ? game.teams.away.team?.name || "???"
+              : game.teams.home.team?.name || "???";
+            gameInfo.losing_team = game.teams.away.isWinner
+              ? game.teams.home.team?.name || "???"
+              : game.teams.away.team?.name || "???";
+            gameInfo.winning_pitcher = game.decisions?.winner?.fullName || "";
+            gameInfo.losing_pitcher = game.decisions?.loser?.fullName || "";
+            gameInfo.save_pitcher = game.decisions?.save?.fullName;
+          }
+          const summary =
+            dateObj.date +
+            " - " +
+            (game.teams.away.team?.name || "???") +
+            " (" +
+            (game.teams.away.score || "") +
+            ") @ " +
+            (game.teams.home.team?.name || "???") +
+            " (" +
+            (game.teams.home.score || "") +
+            ") (" +
+            game.status.detailedState +
+            ")";
+          gameInfo.summary = summary;
+        } else if (gameInfo.status === "In Progress") {
+          gameInfo.summary =
+            dateObj.date +
+            " - " +
+            game.teams.away.team.name +
+            " (" +
+            (game.teams.away.score || "0") +
+            ") @ " +
+            game.teams.home.team.name +
+            " (" +
+            (game.teams.home.score || "0") +
+            ") (" +
+            game.linescore?.inningState +
+            " of the " +
+            game.linescore?.currentInningOrdinal +
+            ")";
+        } else {
+          const summary =
+            dateObj.date +
+            " - " +
+            game.teams.away.team.name +
+            " @ " +
+            game.teams.home.team.name +
+            " (" +
+            game.status.detailedState +
+            ")";
+          gameInfo.summary = summary;
+        }
 
-    games = []
-    if r.get("totalItems") == 0:
-        return games  # TODO: ValueError('No games to parse from schedule object.') instead?
-    else:
-        for date in r.get("dates"):
-            for game in date.get("games"):
-                game_info = {
-                    "game_id": game["gamePk"],
-                    "game_datetime": game["gameDate"],
-                    "game_date": date["date"],
-                    "game_type": game["gameType"],
-                    "status": game["status"]["detailedState"],
-                    "away_name": game["teams"]["away"]["team"].get("name", "???"),
-                    "home_name": game["teams"]["home"]["team"].get("name", "???"),
-                    "away_id": game["teams"]["away"]["team"]["id"],
-                    "home_id": game["teams"]["home"]["team"]["id"],
-                    "doubleheader": game["doubleHeader"],
-                    "game_num": game["gameNumber"],
-                    "home_probable_pitcher": game["teams"]["home"]
-                    .get("probablePitcher", {})
-                    .get("fullName", ""),
-                    "away_probable_pitcher": game["teams"]["away"]
-                    .get("probablePitcher", {})
-                    .get("fullName", ""),
-                    "home_pitcher_note": game["teams"]["home"]
-                    .get("probablePitcher", {})
-                    .get("note", ""),
-                    "away_pitcher_note": game["teams"]["away"]
-                    .get("probablePitcher", {})
-                    .get("note", ""),
-                    "away_score": game["teams"]["away"].get("score", "0"),
-                    "home_score": game["teams"]["home"].get("score", "0"),
-                    "current_inning": game.get("linescore", {}).get(
-                        "currentInning", ""
-                    ),
-                    "inning_state": game.get("linescore", {}).get("inningState", ""),
-                    "venue_id": game.get("venue", {}).get("id"),
-                    "venue_name": game.get("venue", {}).get("name"),
-                    "national_broadcasts": list(
-                        set(
-                            broadcast["name"]
-                            for broadcast in game.get("broadcasts", [])
-                            if broadcast.get("isNational", False)
-                        )
-                    ),
-                    "series_status": game.get("seriesStatus", {}).get("result"),
-                }
-                if game["content"].get("media", {}).get("freeGame", False):
-                    game_info["national_broadcasts"].append("MLB.tv Free Game")
-                if game_info["status"] in ["Final", "Game Over"]:
-                    if game.get("isTie"):
-                        game_info.update({"winning_team": "Tie", "losing_Team": "Tie"})
-                    else:
-                        game_info.update(
-                            {
-                                "winning_team": game["teams"]["away"]["team"].get(
-                                    "name", "???"
-                                )
-                                if game["teams"]["away"].get("isWinner")
-                                else game["teams"]["home"]["team"].get("name", "???"),
-                                "losing_team": game["teams"]["home"]["team"].get(
-                                    "name", "???"
-                                )
-                                if game["teams"]["away"].get("isWinner")
-                                else game["teams"]["away"]["team"].get("name", "???"),
-                                "winning_pitcher": game.get("decisions", {})
-                                .get("winner", {})
-                                .get("fullName", ""),
-                                "losing_pitcher": game.get("decisions", {})
-                                .get("loser", {})
-                                .get("fullName", ""),
-                                "save_pitcher": game.get("decisions", {})
-                                .get("save", {})
-                                .get("fullName"),
-                            }
-                        )
-                    summary = (
-                        date["date"]
-                        + " - "
-                        + game["teams"]["away"]["team"].get("name", "???")
-                        + " ("
-                        + str(game["teams"]["away"].get("score", ""))
-                        + ") @ "
-                        + game["teams"]["home"]["team"].get("name", "???")
-                        + " ("
-                        + str(game["teams"]["home"].get("score", ""))
-                        + ") ("
-                        + game["status"]["detailedState"]
-                        + ")"
-                    )
-                    game_info.update({"summary": summary})
-                elif game_info["status"] == "In Progress":
-                    game_info.update(
-                        {
-                            "summary": date["date"]
-                            + " - "
-                            + game["teams"]["away"]["team"]["name"]
-                            + " ("
-                            + str(game["teams"]["away"].get("score", "0"))
-                            + ") @ "
-                            + game["teams"]["home"]["team"]["name"]
-                            + " ("
-                            + str(game["teams"]["home"].get("score", "0"))
-                            + ") ("
-                            + game["linescore"]["inningState"]
-                            + " of the "
-                            + game["linescore"]["currentInningOrdinal"]
-                            + ")"
-                        }
-                    )
-                else:
-                    summary = (
-                        date["date"]
-                        + " - "
-                        + game["teams"]["away"]["team"]["name"]
-                        + " @ "
-                        + game["teams"]["home"]["team"]["name"]
-                        + " ("
-                        + game["status"]["detailedState"]
-                        + ")"
-                    )
-                    game_info.update({"summary": summary})
+        games.push(gameInfo);
+      }
+    }
 
-                games.append(game_info)
+    return games;
+  }
 
-        return games
 
 
 def boxscore(
@@ -1622,7 +1598,7 @@ def get(endpoint, params, force=False):
         raise ValueError("Invalid endpoint (" + str(endpoint) + ").")
 
     url = ep["url"]
-    logger.debug("URL: {}".format(url))
+    console.log("URL: {}".format(url))
 
     path_params = {}
     query_params = {}
@@ -1630,7 +1606,7 @@ def get(endpoint, params, force=False):
     # Parse parameters into path and query parameters, and discard invalid parameters
     for p, pv in params.items():
         if ep["path_params"].get(p):
-            logger.debug("Found path param: {}".format(p))
+            console.log("Found path param: {}".format(p))
             if ep["path_params"][p].get("type") == "bool":
                 if str(pv).lower() == "false":
                     path_params.update({p: ep["path_params"][p].get("False", "")})
@@ -1639,32 +1615,32 @@ def get(endpoint, params, force=False):
             else:
                 path_params.update({p: str(pv)})
         elif p in ep["query_params"]:
-            logger.debug("Found query param: {}".format(p))
+            console.log("Found query param: {}".format(p))
             query_params.update({p: str(pv)})
         else:
             if force:
-                logger.debug(
+                console.log(
                     "Found invalid param, forcing into query parameters per force flag: {}".format(
                         p
                     )
                 )
                 query_params.update({p: str(pv)})
             else:
-                logger.debug("Found invalid param, ignoring: {}".format(p))
+                console.log("Found invalid param, ignoring: {}".format(p))
 
-    logger.debug("path_params: {}".format(path_params))
-    logger.debug("query_params: {}".format(query_params))
+    console.log("path_params: {}".format(path_params))
+    console.log("query_params: {}".format(query_params))
 
     # Replace path parameters with their values
     for k, v in path_params.items():
-        logger.debug("Replacing {%s}" % k)
+        console.log("Replacing {%s}" % k)
         url = url.replace(
             "{" + k + "}",
             ("/" if ep["path_params"][k]["leading_slash"] else "")
             + v
             + ("/" if ep["path_params"][k]["trailing_slash"] else ""),
         )
-        logger.debug("URL: {}".format(url))
+        console.log("URL: {}".format(url))
 
     while url.find("{") != -1 and url.find("}") > url.find("{"):
         param = url[url.find("{") + 1 : url.find("}")]
@@ -1673,7 +1649,7 @@ def get(endpoint, params, force=False):
                 ep["path_params"][param]["default"]
                 and ep["path_params"][param]["default"] != ""
             ):
-                logger.debug(
+                console.log(
                     "Replacing {%s} with default: %s."
                     % (param, ep["path_params"][param]["default"])
                 )
@@ -1682,24 +1658,24 @@ def get(endpoint, params, force=False):
                 )
             else:
                 if force:
-                    logger.warning(
+                    console.log(
                         "Missing required path parameter {%s}, proceeding anyway per force flag..."
                         % param
                     )
                 else:
                     raise ValueError("Missing required path parameter {%s}" % param)
         else:
-            logger.debug("Removing optional param {%s}" % param)
+            console.log("Removing optional param {%s}" % param)
             url = url.replace("{" + param + "}", "")
 
-        logger.debug("URL: {}".format(url))
+        console.log("URL: {}".format(url))
     # Add query parameters to the URL
     if len(query_params) > 0:
         for k, v in query_params.items():
-            logger.debug("Adding query parameter {}={}".format(k, v))
+            console.log("Adding query parameter {}={}".format(k, v))
             sep = "?" if url.find("?") == -1 else "&"
             url += sep + k + "=" + v
-            logger.debug("URL: {}".format(url))
+            console.log("URL: {}".format(url))
 
     # Make sure required parameters are present
     satisfied = False
