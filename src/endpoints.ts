@@ -19,13 +19,6 @@ export interface EndpointDefinition {
     note: string;
   }
 
-export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
-    game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
-    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
-    team, team_alumni, team_coaches, team_leaders, team_personnel, team_roster, team_stats, teams, teams_history, teams_stats, teams_affiliates, transactions, venue, meta
-} 
-
 const attendance: EndpointDefinition = {
         "url": BASE_URL + "{ver}/attendance",
         "path_params": {
@@ -487,7 +480,7 @@ const highLow: EndpointDefinition = {
         "required_params": [["sortStat", "season"]],
         "note": "Valid values for orgType parameter: player, team, division, league, sport, types.",
     }
-const homeRunDerby: EndpointDefinition {
+const homeRunDerby: EndpointDefinition = {
         "url": BASE_URL + "{ver}/homeRunDerby/{gamePk}{bracket}{pool}",
         "path_params": {
             "ver": {
@@ -1371,4 +1364,10 @@ const meta: EndpointDefinition = {
     }
     # v1/analytics - requires authentication
     # v1/game/{gamePk}/guids - statcast data - requires authentication
-};
+
+export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
+    game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
+    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
+    team, team_alumni, team_coaches, team_leaders, team_personnel, team_roster, team_stats, teams, teams_history, teams_stats, teams_affiliates, transactions, venue, meta
+} 
