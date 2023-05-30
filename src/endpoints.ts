@@ -23,7 +23,7 @@ export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, award
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
     schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
-    team, team_alumni, team_coaches, team_leaders, team_personnel, team_roster, teams, teams_history, teams_stats, teams_affiliates
+    team, team_alumni, team_coaches, team_leaders, team_personnel, team_roster, team_stats, teams, teams_history, teams_stats, teams_affiliates
 } 
 
 const attendance: EndpointDefinition = {
@@ -1199,7 +1199,7 @@ const team_roster: EndpointDefinition = {
         "query_params": ["rosterType", "season", "date", "hydrate", "fields"],
         "required_params": [[]],
     }
-    "team_stats": {
+const team_stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/stats",
         "path_params": {
             "ver": {
@@ -1228,7 +1228,7 @@ const team_roster: EndpointDefinition = {
         ],
         "required_params": [["season", "group"]],
         "note": "Use meta('statGroups') to look up valid values for group, meta('statTypes') for valid values for stats, and meta('situationCodes') for valid values for sitCodes. Use sitCodes with stats=statSplits.",
-    },
+    }
 const teams: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams",
         "path_params": {
