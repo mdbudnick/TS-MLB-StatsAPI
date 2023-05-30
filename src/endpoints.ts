@@ -23,7 +23,7 @@ export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, award
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
     schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
-    teams, teams_history, teams_stats, teams_affiliates
+    team, teams, teams_history, teams_stats, teams_affiliates
 } 
 
 const attendance: EndpointDefinition = {
@@ -1066,84 +1066,7 @@ const stats_streaks: EndpointDefinition  = {
         "required_params": [["streakType", "streakSpan", "season", "sportId", "limit"]],
         "note": 'Valid streakType values: "hittingStreakOverall" "hittingStreakHome" "hittingStreakAway" "onBaseOverall" "onBaseHome" "onBaseAway". Valid streakSpan values: "career" "season" "currentStreak" "currentStreakInSeason" "notable" "notableInSeason".',
     }
-const teams: EndpointDefinition = {
-        "url": BASE_URL + "{ver}/teams",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            }
-        },
-        "query_params": [
-            "season",
-            "activeStatus",
-            "leagueIds",
-            "sportId",
-            "sportIds",
-            "gameType",
-            "hydrate",
-            "fields",
-        ],
-        "required_params": [[]],
-    }
-const teams_history: EndpointDefinition = {
-        "url": BASE_URL + "{ver}/teams/history",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            }
-        },
-        "query_params": ["teamIds", "startSeason", "endSeason", "fields"],
-        "required_params": [["teamIds"]],
-    }
-const teams_stats: EndpointDefinition = {
-        "url": BASE_URL + "{ver}/teams/stats",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            }
-        },
-        "query_params": [
-            "season",
-            "sportIds",
-            "group",
-            "gameType",
-            "stats",
-            "order",
-            "sortStat",
-            "fields",
-            "startDate",
-            "endDate",
-        ],
-        "required_params": [["season", "group", "stats"]],
-        "note": "Use meta('statGroups') to look up valid values for group, and meta('statTypes') for valid values for stats.",
-    }
-const teams_affiliates: EndpointDefinition = {
-        "url": BASE_URL + "{ver}/teams/affiliates",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": False,
-                "trailing_slash": False,
-                "required": True,
-            }
-        },
-        "query_params": ["teamIds", "sportId", "season", "hydrate", "fields"],
-        "required_params": [["teamIds"]],
-    }
-    "team": {
+const team: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}",
         "path_params": {
             "ver": {
@@ -1163,7 +1086,7 @@ const teams_affiliates: EndpointDefinition = {
         },
         "query_params": ["season", "sportId", "hydrate", "fields"],
         "required_params": [[]],
-    },
+    }
     "team_alumni": {
         "url": BASE_URL + "{ver}/teams/{teamId}/alumni",
         "path_params": {
@@ -1306,6 +1229,83 @@ const teams_affiliates: EndpointDefinition = {
         "required_params": [["season", "group"]],
         "note": "Use meta('statGroups') to look up valid values for group, meta('statTypes') for valid values for stats, and meta('situationCodes') for valid values for sitCodes. Use sitCodes with stats=statSplits.",
     },
+const teams: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/teams",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": False,
+                "trailing_slash": False,
+                "required": True,
+            }
+        },
+        "query_params": [
+            "season",
+            "activeStatus",
+            "leagueIds",
+            "sportId",
+            "sportIds",
+            "gameType",
+            "hydrate",
+            "fields",
+        ],
+        "required_params": [[]],
+    }
+const teams_history: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/teams/history",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": False,
+                "trailing_slash": False,
+                "required": True,
+            }
+        },
+        "query_params": ["teamIds", "startSeason", "endSeason", "fields"],
+        "required_params": [["teamIds"]],
+    }
+const teams_stats: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/teams/stats",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": False,
+                "trailing_slash": False,
+                "required": True,
+            }
+        },
+        "query_params": [
+            "season",
+            "sportIds",
+            "group",
+            "gameType",
+            "stats",
+            "order",
+            "sortStat",
+            "fields",
+            "startDate",
+            "endDate",
+        ],
+        "required_params": [["season", "group", "stats"]],
+        "note": "Use meta('statGroups') to look up valid values for group, and meta('statTypes') for valid values for stats.",
+    }
+const teams_affiliates: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/teams/affiliates",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": False,
+                "trailing_slash": False,
+                "required": True,
+            }
+        },
+        "query_params": ["teamIds", "sportId", "season", "hydrate", "fields"],
+        "required_params": [["teamIds"]],
+    }
     "transactions": {
         "url": BASE_URL + "{ver}/transactions",
         "path_params": {
