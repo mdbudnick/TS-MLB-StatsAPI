@@ -709,41 +709,6 @@ const jobs: EndpointDefinition = {
         "query_params": ["jobType", "sportId", "date", "fields"],
         "required_params": [["jobType"]],
     }
-    "jobs_umpires": {
-        "url": BASE_URL + "{ver}/jobs/umpires",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": false,
-                "trailing_slash": false,
-                "required": true,
-            }
-        },
-        "query_params": ["sportId", "date", "fields"],
-        "required_params": [],
-    },
-const jobs_umpire_games: EndpointDefinition = {
-        "url": BASE_URL + "{ver}/jobs/umpires/games/{umpireId}",
-        "path_params": {
-            "ver": {
-                "type": "str",
-                "default": "v1",
-                "leading_slash": false,
-                "trailing_slash": false,
-                "required": true,
-            },
-            "umpireId": {
-                "type": "str",
-                "default": null,
-                "leading_slash": false,
-                "trailing_slash": false,
-                "required": true,
-            },
-        },
-        "query_params": ["season", "fields"],
-        "required_params": ["season"],
-    },
 const jobs_datacasters: EndpointDefinition = {
         "url": BASE_URL + "{ver}/jobs/datacasters",
         "path_params": {
@@ -771,6 +736,41 @@ const jobs_officialScorers: EndpointDefinition = {
         },
         "query_params": ["timecode", "fields"],
         "required_params": [],
+    }
+const jobs_umpires: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/jobs/umpires",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": false,
+                "trailing_slash": false,
+                "required": true,
+            }
+        },
+        "query_params": ["sportId", "date", "fields"],
+        "required_params": [],
+    }
+const jobs_umpire_games: EndpointDefinition = {
+        "url": BASE_URL + "{ver}/jobs/umpires/games/{umpireId}",
+        "path_params": {
+            "ver": {
+                "type": "str",
+                "default": "v1",
+                "leading_slash": false,
+                "trailing_slash": false,
+                "required": true,
+            },
+            "umpireId": {
+                "type": "str",
+                "default": null,
+                "leading_slash": false,
+                "trailing_slash": false,
+                "required": true,
+            },
+        },
+        "query_params": ["season", "fields"],
+        "required_params": ["season"],
     }
 const schedule: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule",
@@ -1367,7 +1367,7 @@ const meta: EndpointDefinition = {
 
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
-    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
+    people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_datacasters, jobs_officialScorers, jobs_umpires, jobs_umpire_games,
     schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
     team, team_alumni, team_coaches, team_leaders, team_personnel, team_roster, team_stats, teams, teams_history, teams_stats, teams_affiliates, transactions, venue, meta
 } 
