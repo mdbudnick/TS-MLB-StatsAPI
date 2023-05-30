@@ -69,7 +69,7 @@ const awards: EndpointDefinition = {
             },
         },
         "query_params": ["sportId", "leagueId", "season", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
         "note": "Call awards endpoint with no parameters to return a list of awardIds.",
     }
 const conferences: EndpointDefinition = {
@@ -84,7 +84,7 @@ const conferences: EndpointDefinition = {
             }
         },
         "query_params": ["conferenceId", "season", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const divisions: EndpointDefinition = {
         "url": BASE_URL + "{ver}/divisions",
@@ -98,7 +98,7 @@ const divisions: EndpointDefinition = {
             }
         },
         "query_params": ["divisionId", "leagueId", "sportId"],
-        "required_params": [[]],
+        "required_params": [],
         "note": "Call divisions endpoint with no parameters to return a list of divisions.",
     }
 const draft: EndpointDefinition = {
@@ -150,7 +150,7 @@ const draft: EndpointDefinition = {
             "playerId",
             "bisPlayerId",
         ],
-        "required_params": [[]],
+        "required_params": [],
         "note": 'No query parameters are honored when "latest" endpoint is queried (year is still required). Prospects and Latest cannot be used together.',
     }
 const game: EndpointDefinition = {
@@ -172,7 +172,7 @@ const game: EndpointDefinition = {
             },
         },
         "query_params": ["timecode", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const game_boxscore: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/boxscore",
@@ -193,7 +193,7 @@ const game_boxscore: EndpointDefinition = {
         },
     },
     "query_params": ["timecode", "fields"],
-    "required_params": [[]],
+    "required_params": [],
 }
 const game_changes: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/changes",
@@ -228,7 +228,7 @@ const game_color: EndpointDefinition = {
         },
     },
     "query_params": ["timecode", "fields"],
-    "required_params": [[]],
+    "required_params": [],
 }
 const game_color_diff: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/feed/color/diffPatch",
@@ -270,7 +270,7 @@ const game_content: EndpointDefinition = {
         },
     },
     "query_params": ["highlightLimit"],
-    "required_params": [[]],
+    "required_params": [],
 }
 const game_contextMetrics: EndpointDefinition = {
     "url": BASE_URL + "{ver}/game/{gamePk}/contextMetrics",
@@ -291,7 +291,7 @@ const game_contextMetrics: EndpointDefinition = {
         },
     },
     "query_params": ["timecode", "fields"],
-    "required_params": [[]],
+    "required_params": [],
 }
 const game_diff: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/feed/live/diffPatch",
@@ -333,7 +333,7 @@ const game_timestamps: EndpointDefinition = {
             },
         },
         "query_params": [],
-        "required_params": [[]],
+        "required_params": [],
     }
 const game_winProbability: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/winProbability",
@@ -354,7 +354,7 @@ const game_winProbability: EndpointDefinition = {
             },
         },
         "query_params": ["timecode", "fields"],
-        "required_params": [[]],
+        "required_params": [],
         "note": "If you only want the current win probability for each team, try the game_contextMetrics endpoint instad.",
     }
 
@@ -377,7 +377,7 @@ const game_color_timestamps: EndpointDefinition = {
             },
         },
         "query_params": [],
-        "required_params": [[]],
+        "required_params": [],
     }
 const game_linescore: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/linescore",
@@ -398,7 +398,7 @@ const game_linescore: EndpointDefinition = {
             },
         },
         "query_params": ["timecode", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const game_playByPlay: EndpointDefinition = {
         "url": BASE_URL + "{ver}/game/{gamePk}/playByPlay",
@@ -419,7 +419,7 @@ const game_playByPlay: EndpointDefinition = {
             },
         },
         "query_params": ["timecode", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const gamePace: EndpointDefinition = {
         "url": BASE_URL + "{ver}/gamePace",
@@ -517,7 +517,7 @@ const homeRunDerby: EndpointDefinition = {
             },
         },
         "query_params": ["fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const league: EndpointDefinition = {
         "url": BASE_URL + "{ver}/league",
@@ -622,7 +622,7 @@ const people_changes: EndpointDefinition = {
             }
         },
         "query_params": ["updatedSince", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const people_freeAgents: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people/freeAgents",
@@ -643,7 +643,7 @@ const people_freeAgents: EndpointDefinition = {
             },
         },
         "query_params": ["order", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const person: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people/{personId}",
@@ -664,7 +664,7 @@ const person: EndpointDefinition = {
             },
         },
         "query_params": ["hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const person_stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/people/{personId}/stats/game/{gamePk}",
@@ -692,7 +692,7 @@ const person_stats: EndpointDefinition = {
             },
         },
         "query_params": ["fields"],
-        "required_params": [[]],
+        "required_params": [],
         "note": 'Specify "current" instead of a gamePk for a player\'s current game stats.',
     }
 const jobs: EndpointDefinition = {
@@ -721,7 +721,7 @@ const jobs: EndpointDefinition = {
             }
         },
         "query_params": ["sportId", "date", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     },
 const jobs_umpire_games: EndpointDefinition = {
         "url": BASE_URL + "{ver}/jobs/umpires/games/{umpireId}",
@@ -756,7 +756,7 @@ const jobs_datacasters: EndpointDefinition = {
             }
         },
         "query_params": ["sportId", "date", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const jobs_officialScorers: EndpointDefinition = {
         "url": BASE_URL + "{ver}/jobs/officialScorers",
@@ -770,7 +770,7 @@ const jobs_officialScorers: EndpointDefinition = {
             }
         },
         "query_params": ["timecode", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const schedule: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule",
@@ -822,7 +822,7 @@ const schedule_postseason: EndpointDefinition = {
             "hydrate",
             "fields",
         ],
-        "required_params": [[]],
+        "required_params": [],
     }
 const schedule_postseason_series: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule/postseason/series",
@@ -843,7 +843,7 @@ const schedule_postseason_series: EndpointDefinition = {
             "season",
             "fields",
         ],
-        "required_params": [[]],
+        "required_params": [],
     }
 const schedule_postseason_tuneIn: EndpointDefinition = {
         "url": BASE_URL + "{ver}/schedule/postseason/tuneIn",
@@ -857,7 +857,7 @@ const schedule_postseason_tuneIn: EndpointDefinition = {
             }
         },
         "query_params": ["teamId", "sportId", "season", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
         "note": "The schedule_postseason_tuneIn endpoint appears to return no data.",
     }
 const schedule_tied: EndpointDefinition = {
@@ -931,7 +931,7 @@ const sports: EndpointDefinition = {
             }
         },
         "query_params": ["sportId", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const sports_players: EndpointDefinition = {
         "url": BASE_URL + "{ver}/sports/{sportId}/players",
@@ -1078,7 +1078,7 @@ const team: EndpointDefinition = {
             },
         },
         "query_params": ["season", "sportId", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const team_alumni: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/alumni",
@@ -1120,7 +1120,7 @@ const team_coaches: EndpointDefinition = {
             },
         },
         "query_params": ["season", "date", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const team_leaders: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/leaders",
@@ -1169,7 +1169,7 @@ const team_personnel: EndpointDefinition = {
             },
         },
         "query_params": ["date", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const team_roster: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/roster",
@@ -1190,7 +1190,7 @@ const team_roster: EndpointDefinition = {
             },
         },
         "query_params": ["rosterType", "season", "date", "hydrate", "fields"],
-        "required_params": [[]],
+        "required_params": [],
     }
 const team_stats: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/stats",
@@ -1243,7 +1243,7 @@ const teams: EndpointDefinition = {
             "hydrate",
             "fields",
         ],
-        "required_params": [[]],
+        "required_params": [],
     }
 const teams_history: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/history",
@@ -1358,8 +1358,8 @@ const meta: EndpointDefinition = {
                 "required": true,
             },
         },
-        "query_params": [[]],
-        "required_params": [[]],
+        "query_params": [],
+        "required_params": [],
         "note": "The meta endpoint is used to retrieve values to be used within other API calls. Available types: awards, baseballStats, eventTypes, gameStatus, gameTypes, hitTrajectories, jobTypes, languages, leagueLeaderTypes, logicalEvents, metrics, pitchCodes, pitchTypes, platforms, positions, reviewReasons, rosterTypes, scheduleEventTypes, situationCodes, sky, standingsTypes, statGroups, statTypes, windDirection.",
     }
     // v1/analytics - requires authentication
