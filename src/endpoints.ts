@@ -16,7 +16,7 @@ export interface EndpointDefinition {
     };
     query_params: string[];
     required_params: any[][];
-    note: string;
+    note?: string | undefined;
   }
 
 const attendance: EndpointDefinition = {
