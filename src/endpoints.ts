@@ -22,7 +22,8 @@ export interface EndpointDefinition {
 export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, awards, conferences, divisions, draft, game, game_boxscore, game_changes, game_color, game_color_diff, game_content, game_contextMetrics, game_diff, game_timestamps, game_winProbability,
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
-    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks
+    schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
+    teams
 } 
 
 const attendance: EndpointDefinition = {
@@ -1065,7 +1066,7 @@ const stats_streaks: EndpointDefinition  = {
         "required_params": [["streakType", "streakSpan", "season", "sportId", "limit"]],
         "note": 'Valid streakType values: "hittingStreakOverall" "hittingStreakHome" "hittingStreakAway" "onBaseOverall" "onBaseHome" "onBaseAway". Valid streakSpan values: "career" "season" "currentStreak" "currentStreakInSeason" "notable" "notableInSeason".',
     }
-    "teams": {
+const teams: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams",
         "path_params": {
             "ver": {
@@ -1087,7 +1088,7 @@ const stats_streaks: EndpointDefinition  = {
             "fields",
         ],
         "required_params": [[]],
-    },
+    }
     "teams_history": {
         "url": BASE_URL + "{ver}/teams/history",
         "path_params": {
