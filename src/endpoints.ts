@@ -23,7 +23,7 @@ export const ENDPOINTS: Record<string, EndpointDefinition> = { attendance, award
     game_color_timestamps, game_linescore, game_playByPlay, gamePace, highLow, homeRunDerby, league, league_allStarBallot, league_allStarWriteIns, league_allStarFinalVote,
     people, people_changes, people_freeAgents, person, person_stats, jobs, jobs_umpire_games, jobs_datacasters, jobs_officialScorers,
     schedule, schedule_postseason, schedule_postseason_series, schedule_postseason_tuneIn, schedule_tied, seasons, season, sports, sports_players, standings, stats, stats_leaders, stats_streaks,
-    team, teams, teams_history, teams_stats, teams_affiliates
+    team, team_alumni, teams, teams_history, teams_stats, teams_affiliates
 } 
 
 const attendance: EndpointDefinition = {
@@ -1087,7 +1087,7 @@ const team: EndpointDefinition = {
         "query_params": ["season", "sportId", "hydrate", "fields"],
         "required_params": [[]],
     }
-    "team_alumni": {
+const team_alumni: EndpointDefinition = {
         "url": BASE_URL + "{ver}/teams/{teamId}/alumni",
         "path_params": {
             "ver": {
@@ -1107,7 +1107,7 @@ const team: EndpointDefinition = {
         },
         "query_params": ["season", "group", "hydrate", "fields"],
         "required_params": [["season", "group"]],
-    },
+    }
     "team_coaches": {
         "url": BASE_URL + "{ver}/teams/{teamId}/coaches",
         "path_params": {
