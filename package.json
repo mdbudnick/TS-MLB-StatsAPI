@@ -1,6 +1,6 @@
 {
   "name": "ts-mlb-statsapi",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "npm package of forked https://github.com/toddrob99/MLB-StatsAPI/",
   "main": "index.js",
   "directories": {
@@ -8,19 +8,21 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mdbudnick/TS-MLB-StatsAPI.git"
   },
-  "author": "Todd Roberts",
+  "author": "Todd Roberts & Michael Budnick",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/mdbudnick/TS-MLB-StatsAPI/issues"
   },
   "homepage": "https://github.com/mdbudnick/TS-MLB-StatsAPI#readme",
   "devDependencies": {
-    "@types/node": "^20.2.4"
+    "@types/node": "^20.2.4",
+    "typescript": "^4.4.2"
   }
 }
